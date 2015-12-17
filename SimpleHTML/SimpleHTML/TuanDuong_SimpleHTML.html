@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html ng-app="tuanDuongApp">
+<head>
+     <script src="Scripts/angular.js"></script>
+     <script src="Scripts/angular-sanitize.min.js"></script>
+     <script src="Scripts/angular-route.js"></script>
+     <script src="Controller/TuanDuongController.js"></script>
+     <title></title>
+</head>
+<body ng-controller="tuanDuongController">
+     <table align="center" style="margin-top: 50px; font-size: xx-large">
+          <tr>
+               <td>
+                    <div>
+                         <span>{{greeting}}</span>
+                    </div>
+                    <div>
+                         <p>Programming Test Checklist:</p>
+                         <ul>
+                              <li><a href="" style="cursor: pointer" ng-click="loadInstruction(1)">Programming short answer questionairres - 20%</a></li>
+                              <li><a href="" style="cursor: pointer" ng-click="loadInstruction(2)">Build simple HTML5/CSS3 application – 10%</a></li>
+                              <li><a href="" style="cursor: pointer" ng-click="loadInstruction(3)">Reference 3rd party library in web project – 20%</a></li>
+                              <li><a href="" style="cursor: pointer" ng-click="loadInstruction(4)">Build web service and consume it in Angularjs controller – 30%</a></li>
+                              <li><a href="" style="cursor: pointer" ng-click="loadInstruction(5)">Build WPF application – 40%</a></li>
+                         </ul>
+                    </div>
+               </td>
+          </tr>
+     </table>
+
+     <table style="border-top: dashed; width: 100%; height: 100%">
+          <tr ng-if="ShowItem1">
+               <td>
+                    <table align="center" style="font-size: xx-large">
+                         <tr>
+                              <td>
+                                   <div>Instruction Item {{index}}: Programming short answer questionairres
+                                        <ul>
+                                             <li>Please see handout</li>
+                                        </ul>
+                                   </div>
+                              </td>
+                         </tr>
+                    </table>
+               </td>
+          </tr>
+          <tr ng-if="ShowItem2">
+               <td>
+                    <table align="center" style="font-size: xx-large;">
+                         <tr>
+                              <td>
+                                   <div>Instruction Item {{index}}: Build simple HTML5/CSS3 application</div>
+                                        <ul>
+                                             <li>Build simple HTML application name FirstnameLastnameSimpleHTML</li>
+                                             <li>Name your HTML page FirstnameLastname_SimpleHTML.html</li>
+                                             <li>Add one Angularjs Controller for your page - FirstnameLastnameController.js in Controller folder</li>
+                                             <li>Build a side-menu on left pane and style it using CSS</li>
+                                             <li>Menu should contain
+                                                  <ul>
+                                                       <li>File system</li>
+                                                       <li>Upload File</li>
+                                                  </ul>
+                                             </li>
+                                             <li>On right pane build content area</li>
+                                             <li>Use existing template as a guidance</li>
+                                        </ul>
+                              </td>
+                         </tr>
+                         <tr>
+                              <td>
+                                   <div>
+                                        <img src="Image/filesystem.png"  />
+                                        <img src="Image/uploadfile.png" />
+                                   </div>
+                              </td>
+                         </tr>
+                    </table>
+               </td>
+          </tr>
+          <tr ng-if="ShowItem3">
+               <td>
+                    <table align="center" style="font-size: xx-large">
+                         <tr>
+                              <td>
+                                   <div>Instruction Item {{index}}: Reference 3rd party library in web project
+                                   <ul>
+                                             <li>Add Dokmee.Dms.Connector to project Reference</li>
+                                             <li>Dokmee.Dms.Connector is located in Lib folder of sample template</li>
+                                             <li>Follow Dokmee.Dms.Connector guideline for usage</li>
+                                             <li>Implement webmethod call GetFileSystem() for DMS in service.aspx page using Dokmee.Dms.Connector</li>
+                                             <li>Implement webmethod call UploadFile() for DMS in service.aspx page using Dokmee.Dms.Connector</li>
+                                        </ul>
+                                   </div>
+                              </td>
+                         </tr>
+                    </table>
+               </td>
+          </tr>
+          <tr ng-if="ShowItem4">
+               <td>
+                    <table align="center" style="font-size: xx-large">
+                         <tr>
+                              <td>
+                                   <div>Instruction Item {{index}}: Build web service and consume it in Angularjs controller – 30%
+                                   <ul>
+                                             <li>From the menu - File system click calls webmethod GetFileSystem from service in your angularjs controller
+                                                 and load listbox of items return in Content area pane(right-pane)
+                                             </li>
+                                             <li>Select a folder from listbox of items in Content area pane(right-pane)
+                                                 and then click Upload File to call webmethod UploadFile from service in your angularjs controller to upload a file
+                                                 from windows system to your folder
+                                             </li>
+                                        </ul>
+                                   </div>
+                              </td>
+                         </tr>
+                    </table>
+               </td>
+          </tr>
+          <tr ng-if="ShowItem5">
+               <td>
+                    <table align="center" style="font-size: xx-large">
+                         <tr>
+                              <td>
+                                   <div>Instruction Item {{index}}: Build WPF application
+                                        <ul>
+                                             <li>Please see handout and template</li>
+                                        </ul>
+                                   </div>
+                              </td>
+                         </tr>
+                    </table>
+               </td>
+          </tr>
+     </table>
+</body>
+</html>

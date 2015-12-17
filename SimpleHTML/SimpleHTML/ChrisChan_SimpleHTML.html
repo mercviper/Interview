@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="chrisChanApp">
+<head>
+     <script src="Scripts/angular.js"></script>
+     <script src="Scripts/angular-sanitize.min.js"></script>
+     <script src="Scripts/angular-route.js"></script>
+     <script src="Controller/ChrisChanController.js"></script>
+    <title>ChrisChan_SimpleHTML</title>
+</head>
+<body ng-controller="MenuController">
+    <div>
+        <div style="width:200px; float:left; height: auto; border: 2px solid blue">
+            <div style="background-color:silver; ">&nbsp;&nbsp;&nbsp;&nbsp;Menu</div>
+            <div ng-click="fileStructure()" style=" {{fsbackground}}">&nbsp;&nbsp;&nbsp;&nbsp;File Structure</div>
+            <div ng-click="uploadFile()" style="{{ufbackground}}">&nbsp;&nbsp;&nbsp;&nbsp;Upload File</div>
+        </div>
+        <div style="float:left; height: inherit; border: 2px solid blue; border-left-width: 0px; {{showfs}}">
+            {{fs}}
+            {{status}}
+        </div>
+        <div style="float:left; height: inherit; border: 2px solid blue; border-left-width: 0px; {{showuf}}">
+            {{uf}}
+            {{status}}
+        </div>
+    </div>
+</body>
+</html>

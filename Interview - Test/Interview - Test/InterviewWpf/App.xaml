@@ -1,0 +1,14 @@
+﻿<Application x:Class="InterviewWpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ObjectDataProvider x:Key="ItemSource">
+            <ObjectDataProvider.ObjectInstance>
+                <x:ArrayExtension Type="Interview:Document">
+
+                </x:ArrayExtension>
+            </ObjectDataProvider.ObjectInstance>
+        </ObjectDataProvider>
+    </Application.Resources>
+</Application>
