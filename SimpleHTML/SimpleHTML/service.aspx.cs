@@ -8,6 +8,8 @@ using Dokmee.Dms.Connector;
 using Dokmee.Dms.Connector.Extension;
 using Dokmee.Dms.Connector.Data;
 using System.Web.Services;
+using System.Web.Http;
+using System.Net;
 
 namespace SimpleHTML
 {
@@ -24,7 +26,14 @@ namespace SimpleHTML
                 connector.RegisterConnection<string>("http://localhost/dokmee");
                 //connector.SaveConnectionToConfig<string>("http://localhost/dokmee");
             }
-            var cabinets = connector.Login(new LogonInfo { Username = "admin", Password = "admin" });
+            try
+            {
+                var cabinets = connector.Login(new LogonInfo { Username = "admin", Password = "admin" });
+            }
+            catch
+            {
+                return "not found";
+            }
             return connection;
         }
 
