@@ -23,8 +23,8 @@ namespace SimpleHTML
             //if conn dne then make conn
             if (connection == "")
             {
-                connector.RegisterConnection<string>("http://localhost/dokmee");
-                //connector.SaveConnectionToConfig<string>("http://localhost/dokmee");
+                connector.RegisterConnection<string>("http://localhost/");
+                //connector.SaveConnectionToConfig("http://localhost/");
             }
             try
             {
