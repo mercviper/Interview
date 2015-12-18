@@ -86,14 +86,22 @@ namespace Interview
 
     public class MyDocumentProvider :IDocumentProvider
     {
+        Document[] documents;
+        public MyDocumentProvider()
+        {
+            documents = new Document[6] {
+                new PlainTextDocument("Text ABC", 400, "abcdefg"), 
+                new PlainTextDocument("Text 123", 12, "123456789"),
+                new TiffDocument("Tiff1", 100, PixelType.Color, 10),
+                new TiffDocument("Tiff2", 200, PixelType.BlackAndWhite, 20),
+                new PDFDocument("Application1", 9000, PixelType.BlackAndWhite, 200, 2),
+                new PDFDocument("Application2", 3000, PixelType.Color, 100, 1)
+            };
+        }
+
         public IEnumerable<Document> GetDocuments()
         {
-            yield return new PlainTextDocument("Text ABC", 400, "abcdefg");
-            yield return new PlainTextDocument("Text 123", 12, "123456789");
-            yield return new TiffDocument("Tiff1", 100, PixelType.Color, 10);
-            yield return new TiffDocument("Tiff2", 200, PixelType.BlackAndWhite, 20);
-            yield return new PDFDocument("Application1", 9000, PixelType.BlackAndWhite, 200, 2);
-            yield return new PDFDocument("Application2", 3000, PixelType.Color, 100, 1);
+            return documents;
         }
     }
 }
