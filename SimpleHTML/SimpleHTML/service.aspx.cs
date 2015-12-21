@@ -18,23 +18,29 @@ namespace SimpleHTML
         [WebMethod]
         public static string GetFileSystem()
         {
-            DmsConnector connector = new DmsConnector(DokmeeApplication.DokmeeWeb);
-            var connection = connector.GetConnectionFromConfig<string>();
+            DmsConnector connector = new DmsConnector(DokmeeApplication.DokmeeCloud);
+            string cabs = "";
+            //var connection = connector.GetConnectionFromConfig<string>();
             //if conn dne then make conn
-            if (connection == "")
+            //if (connection == "")
+            //{
+            //    connector.RegisterConnection<string>("http://localhost/");
+            //    //connector.SaveConnectionToConfig("http://localhost/");
+            //}
+           // try
+            //{
+                var cabinets = connector.Login(new LogonInfo { Username = "chrischan86@gmail.com", Password = "pqlskxin" });
+           // }
+            //catch
+            //{
+             //   return "Connection Failed";
+           // }
+            foreach(DokmeeCabinet c in cabinets.DokmeeCabinets)
             {
-                connector.RegisterConnection<string>("http://localhost/");
-                //connector.SaveConnectionToConfig("http://localhost/");
+                cabs += "test" + c.CabinetName + "<br>";
+                cabs += "test" + c.CabinetName + "<br>";
             }
-            try
-            {
-                var cabinets = connector.Login(new LogonInfo { Username = "admin", Password = "admin" });
-            }
-            catch
-            {
-                return "not found";
-            }
-            return connection;
+            return cabs;
         }
 
 
