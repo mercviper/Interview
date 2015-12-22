@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Dokmee.Dms.Connector;
 using Dokmee.Dms.Connector.Extension;
 using Dokmee.Dms.Connector.Data;
+using Dokmee.Dms.WebAccess.Data;
 using System.Web.Services;
 using System.Web.Http;
 using System.Net;
@@ -30,16 +31,30 @@ namespace SimpleHTML
            // try
             //{
                 var cabinets = connector.Login(new LogonInfo { Username = "chrischan86@gmail.com", Password = "pqlskxin" });
-           // }
+            // }
             //catch
             //{
-             //   return "Connection Failed";
-           // }
-            foreach(DokmeeCabinet c in cabinets.DokmeeCabinets)
+            //   return "Connection Failed";
+            // }
+
+            foreach (DokmeeCabinet c in cabinets.DokmeeCabinets)
             {
-                cabs += "test" + c.CabinetName + "<br>";
-                cabs += "test" + c.CabinetName + "<br>";
+                cabs += "Cabinet Name = " + c.CabinetName + " <br>";
+                cabs += "Cabinet ID = " + c.CabinetID + " <br>";
+                cabs += "Folder Count = " + c.FolderCount + " <br>";
+                cabs += "File Count = " + c.FileCount + " <br>";
+                connector.RegisterCabinet(c.CabinetID);
+
+                var nodes = connector.GetFilesystem(SubjectTypes.Folder);
+                foreach (DmsNode n in nodes)
+                {
+                    int count = 0;
+                    count++;
+                    cabs += "Folder (" + count + ") = " + n.Name + " <br>";
+                }
             }
+
+
             return cabs;
         }
 
