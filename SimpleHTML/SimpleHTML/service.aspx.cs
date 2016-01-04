@@ -20,18 +20,18 @@ namespace SimpleHTML
         public static string GetFileSystem()
         {
             DmsConnector connector = new DmsConnector(DokmeeApplication.DokmeeCloud);
-            string cabs = "{ \"cabinet\" : {";
+            string cabs = "";//\"cabinet\" : {";
             
 
             var cabinets = connector.Login(new LogonInfo { Username = "chrischan86@gmail.com", Password = "pqlskxin" });
             
             foreach (DokmeeCabinet c in cabinets.DokmeeCabinets)
             {
-                cabs += " \"Name\" : \"" + c.CabinetName + "\", ";
-                cabs += " \"ID\" : \"" + c.CabinetID + "\", ";
-                cabs += "\"Folder Count\" : " + c.FolderCount + ", ";
-                cabs += "\"File Count\" : " + c.FileCount + ", ";
-                cabs += "\"Files\" : [";
+                //cabs += " \"Name\" : \"" + c.CabinetName + "\", ";
+                //cabs += " \"ID\" : \"" + c.CabinetID + "\", ";
+                //cabs += "\"Folder Count\" : " + c.FolderCount + ", ";
+                //cabs += "\"File Count\" : " + c.FileCount + ", ";
+                cabs += "[";//"\"Files\" : [";
                 connector.RegisterCabinet(c.CabinetID);
 
                 var ts = new System.Threading.ParameterizedThreadStart(o => {
@@ -44,14 +44,14 @@ namespace SimpleHTML
                             cabs += ", ";
                         count++;
                         cabs += GetFilesFromNode(n);
-                        //cabs += "{\"Name\" : \"" + n.Name + "\", \"Date Created\" : \"" + n.Created + "\", \"Date Modified\" : \"" + n.Modified + "\", \"Size\" : \"" + n.FileSize + "\"}";
+                        //cabs += "{\"name\" : \"" + n.Name + "\", \"created\" : \"" + n.Created + "\", \"modified\" : \"" + n.Modified + "\", \"size\" : \"" + n.FileSize + "\"}";
                     }
                 });
                 var t = new System.Threading.Thread(ts);
                 t.CurrentCulture = new System.Globalization.CultureInfo("en-GB");
                 t.Start();
                 t.Join();
-                cabs +="]}}";
+                cabs +="]";//}";
             }
             return cabs;
         }
@@ -68,7 +68,7 @@ namespace SimpleHTML
             }
             else
             {
-                filesInNode = "{\"Name\" : \"" + n.Name + "\", \"Date Created\" : \"" + n.Created + "\", \"Date Modified\" : \"" + n.Modified + "\", \"Size\" : \"" + n.FileSize + "\"}";
+                filesInNode = "{\"name\" : \"" + n.Name + "\", \"created\" : \"" + n.Created + "\", \"modified\" : \"" + n.Modified + "\", \"size\" : \"" + n.FileSize + "\"}";
             }
             return filesInNode;
         }

@@ -36,7 +36,7 @@ myApp.controller('MenuController', function ($scope, $http) {
         });
 
         request.success(function (data, status) {
-            $scope.fs = data.d;
+            $scope.fs = eval(data.d);
         })
 
         request.error(function (data, status) {

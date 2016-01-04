@@ -5,18 +5,55 @@
      <script src="Scripts/angular-sanitize.min.js"></script>
      <script src="Scripts/angular-route.js"></script>
      <script src="Controller/ChrisChanController.js"></script>
+    <style>
+        .odd {
+            background-color:whitesmoke;
+        }
+
+        .selected {
+            background-color:yellow;
+        }
+    </style>
     <title>ChrisChan_SimpleHTML</title>
 </head>
 <body ng-controller="MenuController">
     <div>
-        <div style="width:200px; float:left; height: auto; border: 2px solid blue">
+        <div style="width:200px; height:700px; float:left; border: 2px solid blue">
             <div style="background-color:silver; ">&nbsp;&nbsp;&nbsp;&nbsp;Menu</div>
             <div ng-click="fileStructure()" style=" {{fsbackground}}">&nbsp;&nbsp;&nbsp;&nbsp;File Structure</div>
             <div ng-click="uploadFile()" style="{{ufbackground}}">&nbsp;&nbsp;&nbsp;&nbsp;Upload File</div>
         </div>
-        <div style="float:left; height: inherit; border: 2px solid blue; border-left-width: 0px; {{showfs}}">
-            {{fs}}
-            {{status}}
+        <div style="float:left; height: 700px; border: 2px solid blue; border-left-width: 0px; max-width:800px; {{showfs}}">
+            <table>
+                <tr style="color:deepskyblue; border: 0px solid blue; border-bottom-width:2px; text-align:left;">
+                    <th>
+                        NAME
+                    </th>
+                    <th>
+                        DATE CREATED
+                    </th>
+                    <th>
+                        DATE MODIFIED
+                    </th>
+                    <th>
+                        SIZE
+                    </th>
+                </tr>
+                <tr ng-repeat="file in fs" ng-class-odd="'odd'">
+                    <td>
+                        {{file.name}}
+                    </td>
+                    <td>
+                        {{file.created}}
+                    </td>
+                    <td>
+                        {{file.modified}}
+                    </td>
+                    <td>
+                        {{file.size}}
+                    </td>
+                </tr>
+            </table>
         </div>
         <div style="float:left; height: inherit; border: 2px solid blue; border-left-width: 0px; {{showuf}}">
             {{uf}}
