@@ -20,42 +20,57 @@ namespace SimpleHTML
         public static string GetFileSystem()
         {
             DmsConnector connector = new DmsConnector(DokmeeApplication.DokmeeCloud);
-            string cabs = "";
-            //var connection = connector.GetConnectionFromConfig<string>();
-            //if conn dne then make conn
-            //if (connection == "")
-            //{
-            //    connector.RegisterConnection<string>("http://localhost/");
-            //    //connector.SaveConnectionToConfig("http://localhost/");
-            //}
-           // try
-            //{
-                var cabinets = connector.Login(new LogonInfo { Username = "chrischan86@gmail.com", Password = "pqlskxin" });
-            // }
-            //catch
-            //{
-            //   return "Connection Failed";
-            // }
+            string cabs = "{ \"cabinet\" : {";
+            
 
+            var cabinets = connector.Login(new LogonInfo { Username = "chrischan86@gmail.com", Password = "pqlskxin" });
+            
             foreach (DokmeeCabinet c in cabinets.DokmeeCabinets)
             {
-                cabs += "Cabinet Name = " + c.CabinetName + " <br>";
-                cabs += "Cabinet ID = " + c.CabinetID + " <br>";
-                cabs += "Folder Count = " + c.FolderCount + " <br>";
-                cabs += "File Count = " + c.FileCount + " <br>";
+                cabs += " \"Name\" : \"" + c.CabinetName + "\", ";
+                cabs += " \"ID\" : \"" + c.CabinetID + "\", ";
+                cabs += "\"Folder Count\" : " + c.FolderCount + ", ";
+                cabs += "\"File Count\" : " + c.FileCount + ", ";
+                cabs += "\"Files\" : [";
                 connector.RegisterCabinet(c.CabinetID);
 
-                var nodes = connector.GetFilesystem(SubjectTypes.Folder);
-                foreach (DmsNode n in nodes)
-                {
+                var ts = new System.Threading.ParameterizedThreadStart(o => {
+
+                    var nodes = connector.GetFilesystem(SubjectTypes.DocumentOrFolder);
                     int count = 0;
-                    count++;
-                    cabs += "Folder (" + count + ") = " + n.Name + " <br>";
+                    foreach (DmsNode n in nodes)
+                    {
+                        if (count > 0)
+                            cabs += ", ";
+                        count++;
+                        cabs += GetFilesFromNode(n);
+                        //cabs += "{\"Name\" : \"" + n.Name + "\", \"Date Created\" : \"" + n.Created + "\", \"Date Modified\" : \"" + n.Modified + "\", \"Size\" : \"" + n.FileSize + "\"}";
+                    }
+                });
+                var t = new System.Threading.Thread(ts);
+                t.CurrentCulture = new System.Globalization.CultureInfo("en-GB");
+                t.Start();
+                t.Join();
+                cabs +="]}}";
+            }
+            return cabs;
+        }
+
+        private static string GetFilesFromNode(DmsNode n)
+        {
+            string filesInNode = "";
+            if (n.IsFolder)
+            {
+                foreach (DmsNode s in n.SubDmsNodes)
+                {
+                    filesInNode += GetFilesFromNode(s);
                 }
             }
-
-
-            return cabs;
+            else
+            {
+                filesInNode = "{\"Name\" : \"" + n.Name + "\", \"Date Created\" : \"" + n.Created + "\", \"Date Modified\" : \"" + n.Modified + "\", \"Size\" : \"" + n.FileSize + "\"}";
+            }
+            return filesInNode;
         }
 
 

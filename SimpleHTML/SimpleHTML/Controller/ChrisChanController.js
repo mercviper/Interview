@@ -30,7 +30,9 @@ myApp.controller('MenuController', function ($scope, $http) {
         var request = $http({
             method: "POST",
             url: "service.aspx/GetFileSystem",
-            data: {}
+            data: {},
+            headers: { "Content-Type": "application/json" },
+            responseType: 'json'
         });
 
         request.success(function (data, status) {
